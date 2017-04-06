@@ -8,6 +8,7 @@ cache:
 
 os:
   - linux
+dist: trusty
 
 compiler:
   - gcc
