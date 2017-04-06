@@ -15,9 +15,9 @@ compiler:
   - clang
 
 matrix:
-  exclude:
-    - compiler: clang
-      env: GCC_VERSION=4.8
+#  exclude:
+#    - compiler: clang
+#      env: GCC_VERSION=4.8
   include:
     - os: osx
       osx_image: xcode8.3
@@ -68,7 +68,6 @@ script:
       ./scripts/build.sh -j $MAX_JOBS;
     else
       case ${GCC_VERSION} in
-        4.8) CXX=clang++-3.8 ;;
         5) CXX=clang++-3.9 ;;
         6) CXX=clang++-4.0 ;;
       esac ;
