@@ -6,16 +6,37 @@ cache:
   - apt
   - ccache
 
+os:
+  - linux
+
 compiler:
   - gcc
   - clang
+
+matrix:
+  include:
+    - os: osx
+      osx_image: xcode8.3
+      before_install:
+        - brew update
+        - brew install scons check
+      script:
+        - ${CC} --version ; ${CXX} --version
+        - ./scripts/build.sh
+
+env:
+  matrix:
+    - GCC_VERSION=4.8
+    - GCC_VERSION=5
+    - GCC_VERSION=6
 
 addons:
   apt:
     sources:
       - ubuntu-toolchain-r-test
-#     https://github.com/travis-ci/travis-ci/issues/3668
-#     for alternatives in container builds
+      - llvm-toolchain-trusty
+      - llvm-toolchain-trusty-3.9
+      - llvm-toolchain-trusty-4.0
     packages:
       - libboost-program-options-dev
       - libssl-dev
@@ -23,6 +44,15 @@ addons:
       - scons
       - gcc-5
       - g++-5
+      - gcc-6
+      - g++-6
+      - clang-3.8
+      - llvm-3.8-dev
+      - clang-3.9
+      - llvm-3.9-dev
+      - clang-4.0
+      - llvm-4.0-dev
+
 
 script:
   - if [ ${CC} != "clang" ]; then
@@ -30,13 +60,17 @@ script:
       MAX_JOBS=$(( ${RAM[1]} / 393216 )); echo Max jobs\:\ $MAX_JOBS;
       CORES=$(grep -c ^processor /proc/cpuinfo);
       [ $CORES -lt $MAX_JOBS ] && MAX_JOBS=$CORES; echo Real jobs\:\ $MAX_JOBS;
-      ${CC} --version; ${CXX} --version;
-      ./scripts/build.sh -j $MAX_JOBS;
-      export CC=`which gcc-5`;
-      export CXX=`which g++-5`;
+      export CXX=g++-${GCC_VERSION}
+      export CC=gcc-${GCC_VERSION}
       ${CC} --version; ${CXX} --version;
       ./scripts/build.sh -j $MAX_JOBS;
     else
+      case ${GCC_VERSION} in
+        4.8) CXX=clang++-3.8 ;;
+        5) CXX=clang++-3.9 ;;
+        6) CXX=clang++-4.0 ;;
+      esac ;
+      export CXX CC=${CXX/++/} ;
       ${CC} --version ; ${CXX} --version;
       ./scripts/build.sh;
     fi
