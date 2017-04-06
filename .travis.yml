@@ -58,8 +58,8 @@ script:
       MAX_JOBS=$(( ${RAM[1]} / 393216 )); echo Max jobs\:\ $MAX_JOBS;
       CORES=$(grep -c ^processor /proc/cpuinfo);
       [ $CORES -lt $MAX_JOBS ] && MAX_JOBS=$CORES; echo Real jobs\:\ $MAX_JOBS;
-      export CXX=g++-${GCC_VERSION}
-      export CC=gcc-${GCC_VERSION}
+      export CXX=g++-${GCC_VERSION};
+      export CC=gcc-${GCC_VERSION};
       ${CC} --version; ${CXX} --version;
       ./scripts/build.sh -j $MAX_JOBS;
     else
@@ -68,7 +68,7 @@ script:
         5) CXX=clang++-3.9 ;;
         6) CXX=clang++-4.0 ;;
       esac ;
-      export CXX CC=${CXX/++/} ;
+      export CXX CC=${CXX/++/};
       ${CC} --version ; ${CXX} --version;
       ./scripts/build.sh;
     fi
