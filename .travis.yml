@@ -24,7 +24,7 @@ matrix:
       before_install:
         - brew update
         - brew install scons openssl check boost asio
-        - find /usr/local
+        - find /usr/local -name ssl.h\*
       script:
         - export CFLAGS=-I/usr/local/Cellar/asio/1.10.8_1/include
         - export CXXFLAGS=${CFLAGS}
