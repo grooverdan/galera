@@ -24,6 +24,7 @@ matrix:
       before_install:
         - brew update
         - brew install scons check boost asio openssl
+        - find /usr/local
       script:
         - ${CC} --version ; ${CXX} --version
         - ./scripts/build.sh
