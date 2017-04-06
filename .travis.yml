@@ -26,6 +26,8 @@ matrix:
         - brew install scons openssl check boost asio
         - find /usr/local
       script:
+        - export CFLAGS=-I/usr/local/Cellar/asio/1.10.8_1/include
+        - export CXXFLAGS=${CFLAGS}
         - ${CC} --version ; ${CXX} --version
         - ./scripts/build.sh
 
