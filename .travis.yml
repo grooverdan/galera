@@ -23,7 +23,7 @@ matrix:
       osx_image: xcode8.3
       before_install:
         - brew update
-        - brew install scons check boost asio
+        - brew install scons check boost asio openssl
       script:
         - ${CC} --version ; ${CXX} --version
         - ./scripts/build.sh
