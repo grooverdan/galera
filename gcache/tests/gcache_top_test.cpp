@@ -295,7 +295,8 @@ START_TEST(top_level_seqno_lock_protects_ist_buffers)
     log_info << "\n#\n# top_level_seqno_lock_protects_ist_buffers\n#";
     const char* const dir_name = "";
     size_t const bh_size = sizeof(gcache::BufferHeader);
-    size_t const page_size = (8 + bh_size)*3;
+    size_t const page_size = (8 + bh_size)*3 // fits 3 buffers <= 8 bytes
+                             + gcache::Page::meta_size(BH_size(0));
 
     gu::Config cfg;
     GCache::register_params(cfg);
