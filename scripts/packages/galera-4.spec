@@ -199,7 +199,6 @@ install -m 755 $CBD/libgalera_smm.so              $RBR%{libs}/libgalera_smm.so
 
 install -d $RBR%{docs}
 install -m 644 $RBD/COPYING                       $RBR%{docs}/COPYING
-install -m 644 $RBD/asio/LICENSE_1_0.txt          $RBR%{docs}/LICENSE.asio
 install -m 644 $RBD/scripts/packages/README       $RBR%{docs}/README
 install -m 644 $RBD/scripts/packages/README-MySQL $RBR%{docs}/README-MySQL
 
@@ -250,7 +249,6 @@ install -m 644 $RBD/man/garbd.8        $RBR%{_mandir}/man8/garbd.8
 
 %attr(0755,root,root) %dir %{docs}
 %doc %attr(0644,root,root) %{docs}/COPYING
-%doc %attr(0644,root,root) %{docs}/LICENSE.asio
 %doc %attr(0644,root,root) %{docs}/README
 %doc %attr(0644,root,root) %{docs}/README-MySQL
 

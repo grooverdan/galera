@@ -99,8 +99,6 @@ if install:
     env.Install(install + '/doc/', '#COPYING')
     env.Install(install + '/doc/', '#AUTHORS')
     env.Install(install + '/doc/', '#scripts/packages/README')
-    env.InstallAs(install + '/doc/LICENSE.asio',
-                '#asio/LICENSE_1_0.txt')
     man_dir = install + '/man/man8'
     env.Install(man_dir, '#man/garbd.8')
     env.Install(man_dir, '#man/garb-systemd.8' )
