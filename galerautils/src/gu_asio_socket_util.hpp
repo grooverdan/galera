@@ -38,6 +38,12 @@ static void set_fd_options(S& socket)
     long flags(FD_CLOEXEC);
     if (fcntl(native_socket_handle(socket), F_SETFD, flags) == -1)
     {
+        // The socket may have been closed concurrently. Throwing here would
+        // escape the completion handler as a gu::Exception and take the gcomm
+        // backend down; let the operation which follows report the failure.
+        if (not socket.is_open()) return;
+        
+        if (errno == EBADF) return; // closed under us
         gu_throw_system_error(errno) << "failed to set FD_CLOEXEC";
     }
 }
